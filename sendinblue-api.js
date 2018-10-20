@@ -29,8 +29,13 @@ SendinblueAPI.prototype.call = function(resource, method, input, cb) {
 		if (response instanceof Error) {
 			cb("Request Failed", null);
 		} else {
-			var responseObj = JSON.parse(response);
-			cb(null, responseObj);
+			try {
+				var responseObj = JSON.parse(response);
+				cb(null, responseObj);
+			} catch (ex) {
+				console.error(response);
+				cb(new Error('Unable to parse response'));
+			}
 		}
 	});
 };
