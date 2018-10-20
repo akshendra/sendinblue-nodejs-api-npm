@@ -25,7 +25,7 @@ SendinblueAPI.prototype.call = function(resource, method, input, cb) {
 	.on('timeout', function(ms){
 		cb('Request timed out within '+ms+' MS', null);
 	})
-	.on('complete', function(response) {
+	.on('complete', function(response, res2) {
 		if (response instanceof Error) {
 			cb("Request Failed", null);
 		} else {
@@ -33,8 +33,8 @@ SendinblueAPI.prototype.call = function(resource, method, input, cb) {
 				var responseObj = JSON.parse(response);
 				cb(null, responseObj);
 			} catch (ex) {
-				console.error(response);
-				cb(new Error('Unable to parse response'));
+				console.error('RESPONSE =>', response, res2);
+				cb(new Error('Unable to parse response'), null);
 			}
 		}
 	});
