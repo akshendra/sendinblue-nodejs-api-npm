@@ -33,8 +33,7 @@ SendinblueAPI.prototype.call = function(resource, method, input, cb) {
 				var responseObj = JSON.parse(response);
 				cb(null, responseObj);
 			} catch (ex) {
-				console.error('RESPONSE =>', response, res2);
-				cb(new Error('Unable to parse response'), null);
+				cb(new Error(`Unable to parse response | ${response}`), null);
 			}
 		}
 	});
